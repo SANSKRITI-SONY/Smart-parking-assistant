@@ -1,3 +1,5 @@
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(8, 9, 10, 11, 12, 13);
 const int greenLED = 4;
 const int yellowLED = 5;
 const int redLED = 6;
@@ -18,6 +20,9 @@ void setup()
   pinMode(echoPin, INPUT);
 
   Serial.begin(9600);
+  
+  lcd.begin(16, 2);
+
 }
 
 void loop()
@@ -36,24 +41,37 @@ void loop()
 
   // Calculate distance in cm
   distance = (duration * 0.0343) / 2;
-
+ 
+  lcd.setCursor(0, 0);
+  lcd.print("Dist: ");
+  lcd.print(distance, 1);
+  lcd.print(" cm   ");
   // Control LEDs
   if (distance > 50)
   {
     digitalWrite(greenLED, HIGH);
     digitalWrite(yellowLED, LOW);
     digitalWrite(redLED, LOW);
+    
+    lcd.setCursor(0, 1);
+    lcd.print("Status: SAFE");
   }
   else if (distance > 20)
   {
     digitalWrite(greenLED, LOW);
     digitalWrite(yellowLED, HIGH);
     digitalWrite(redLED, LOW);
+    
+    lcd.setCursor(0, 1);
+    lcd.print("Status: SLOW ");
   }
   else
   {
     digitalWrite(greenLED, LOW);
     digitalWrite(yellowLED, LOW);
     digitalWrite(redLED, HIGH);
+    
+    lcd.setCursor(0, 1);
+    lcd.print("Status: STOP");
   }
 }
