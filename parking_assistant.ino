@@ -1,5 +1,3 @@
-// C++ code
-//
 #include <LiquidCrystal.h>
 LiquidCrystal lcd(8, 9, 10, 11, 12, 13);
 const int greenLED = 4;
@@ -51,41 +49,89 @@ void loop()
   lcd.print(distance, 1);
   lcd.print(" cm   ");
  
-  // Control LEDs
+  // Control LEDs, LCD and Buzzer
   if (distance > 50)
   {
     digitalWrite(greenLED, HIGH);
     digitalWrite(yellowLED, LOW);
     digitalWrite(redLED, LOW);
-    
+
     lcd.setCursor(0, 1);
     lcd.print("Status: SAFE");
-    
+
     noTone(buzzerPin);
+    delay(100);
   }
+
+  else if (distance > 40)
+  {
+    digitalWrite(greenLED, LOW);
+    digitalWrite(yellowLED, HIGH);
+    digitalWrite(redLED, LOW);
+
+    lcd.setCursor(0, 1);
+    lcd.print("Status: CAUTION");
+
+    tone(buzzerPin, 800);
+    delay(150);
+    noTone(buzzerPin);
+    delay(600);
+  }
+
+  else if (distance > 30)
+  {
+    digitalWrite(greenLED, LOW);
+    digitalWrite(yellowLED, HIGH);
+    digitalWrite(redLED, LOW);
+
+    lcd.setCursor(0, 1);
+    lcd.print("Status: CAUTION");
+
+    tone(buzzerPin, 1000);
+    delay(150);
+    noTone(buzzerPin);
+    delay(350);
+  }
+
   else if (distance > 20)
   {
     digitalWrite(greenLED, LOW);
     digitalWrite(yellowLED, HIGH);
     digitalWrite(redLED, LOW);
-    
+
     lcd.setCursor(0, 1);
-    lcd.print("Status: SLOW ");
-    
-    tone(buzzerPin, 1000);
-	delay(200);
-	noTone(buzzerPin);
-	delay(300);
+    lcd.print("Status: WARNING");
+
+    tone(buzzerPin, 1200);
+    delay(150);
+    noTone(buzzerPin);
+    delay(150);
   }
+
+  else if (distance > 10)
+  {
+    digitalWrite(greenLED, LOW);
+    digitalWrite(yellowLED, LOW);
+    digitalWrite(redLED, HIGH);
+
+    lcd.setCursor(0, 1);
+    lcd.print("Status: STOP");
+
+    tone(buzzerPin, 1800);
+    delay(100);
+    noTone(buzzerPin);
+    delay(50);
+  }
+
   else
   {
     digitalWrite(greenLED, LOW);
     digitalWrite(yellowLED, LOW);
     digitalWrite(redLED, HIGH);
-    
+
     lcd.setCursor(0, 1);
-    lcd.print("Status: STOP");
-    
+    lcd.print("Status: DANGER");
+
     tone(buzzerPin, 2000);
   }
 }
