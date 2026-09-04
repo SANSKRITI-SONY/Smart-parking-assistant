@@ -1,3 +1,5 @@
+// C++ code
+//
 #include <LiquidCrystal.h>
 LiquidCrystal lcd(8, 9, 10, 11, 12, 13);
 const int greenLED = 4;
@@ -9,6 +11,8 @@ const int echoPin = 7;
 
 long duration;
 float distance;
+
+const int buzzerPin =3;
 
 void setup()
 {
@@ -22,7 +26,7 @@ void setup()
   Serial.begin(9600);
   
   lcd.begin(16, 2);
-
+  pinMode(buzzerPin,OUTPUT);
 }
 
 void loop()
@@ -46,6 +50,7 @@ void loop()
   lcd.print("Dist: ");
   lcd.print(distance, 1);
   lcd.print(" cm   ");
+ 
   // Control LEDs
   if (distance > 50)
   {
@@ -55,6 +60,8 @@ void loop()
     
     lcd.setCursor(0, 1);
     lcd.print("Status: SAFE");
+    
+    noTone(buzzerPin);
   }
   else if (distance > 20)
   {
@@ -64,6 +71,11 @@ void loop()
     
     lcd.setCursor(0, 1);
     lcd.print("Status: SLOW ");
+    
+    tone(buzzerPin, 1000);
+	delay(200);
+	noTone(buzzerPin);
+	delay(300);
   }
   else
   {
@@ -73,5 +85,7 @@ void loop()
     
     lcd.setCursor(0, 1);
     lcd.print("Status: STOP");
+    
+    tone(buzzerPin, 2000);
   }
 }
