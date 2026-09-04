@@ -57,7 +57,7 @@ void loop()
     digitalWrite(redLED, LOW);
 
     lcd.setCursor(0, 1);
-    lcd.print("Status: SAFE");
+    lcd.print("Status: SAFE    ");
 
     noTone(buzzerPin);
     delay(100);
@@ -70,7 +70,7 @@ void loop()
     digitalWrite(redLED, LOW);
 
     lcd.setCursor(0, 1);
-    lcd.print("Status: CAUTION");
+    lcd.print("Status: CAUTION ");
 
     tone(buzzerPin, 800);
     delay(150);
@@ -85,7 +85,7 @@ void loop()
     digitalWrite(redLED, LOW);
 
     lcd.setCursor(0, 1);
-    lcd.print("Status: CAUTION");
+    lcd.print("Status: CAUTION ");
 
     tone(buzzerPin, 1000);
     delay(150);
@@ -100,7 +100,7 @@ void loop()
     digitalWrite(redLED, LOW);
 
     lcd.setCursor(0, 1);
-    lcd.print("Status: WARNING");
+    lcd.print("Status: WARNING ");
 
     tone(buzzerPin, 1200);
     delay(150);
@@ -115,7 +115,7 @@ void loop()
     digitalWrite(redLED, HIGH);
 
     lcd.setCursor(0, 1);
-    lcd.print("Status: STOP");
+    lcd.print("Status: STOP    ");
 
     tone(buzzerPin, 1800);
     delay(100);
@@ -130,7 +130,7 @@ void loop()
     digitalWrite(redLED, HIGH);
 
     lcd.setCursor(0, 1);
-    lcd.print("Status: DANGER");
+    lcd.print("Status: DANGER  ");
 
     tone(buzzerPin, 2000);
   }
